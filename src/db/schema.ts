@@ -40,6 +40,9 @@ export const wallets = pgTable(
       .notNull(),
     address: varchar("address", { length: 42 }).notNull().unique(),
     encryptedPrivateKey: text("encrypted_private_key").notNull(),
+    lastKnownBalance: numeric("last_known_balance", { precision: 36, scale: 18 })
+      .notNull()
+      .default("0"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [index("wallets_user_id_idx").on(table.userId)]
